@@ -18,6 +18,13 @@
 
     </head>
     <body>
+        <!-- Quando houver erros no forms: -->
+		{% if form.errors %}
+			{% for errors in form.errors %}
+			   {{ errors }}
+			{% endfor %}
+		{% endif %}
+		<!-- Fim do erro no forms -->
         <header class="page-header text-center color-link-empresa">
             <h1><strong>RSA</strong> - Solicitação de serviço</h1>
         </header>
@@ -38,8 +45,8 @@
                         </select>
                     </div>
                     <div>
-                        <label for="cliente">Cliente:</br></label>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
+                        <label for="cliente">Cliente:</label>
                         <select data-width="auto" class="selectpicker">
                             {% for clientes in client_list|na_empresa:var_empresa_id %}
                                  <option value="{{ clientes.id }}">{{ clientes.nome }}</option>
@@ -49,29 +56,86 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3">
+                    <div class="col-sm-2">
                         <div class="form-group">
                             <label for="num_nf_entrada">Número Nota Fiscal de Entrada:</label>
                             {{ form.num_nf_entrada }}
                         </div>
                     </div>
-                    <div class="col-sm-4">
-                         <div class="form-group">
-                            <label for="descricao">Descrição:</label>
-                            {{ form.descricao }}
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                     <div class="col-sm-3">
+                    <div class="col-sm-2"><br>
                          <div class="form-group">
                             <label for="num_pedido">Número do pedido:</label>
                             {{ form.num_pedido }}
                         </div>
                     </div>
+                     <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="num_nf_servico">Número Nota Fiscal de Serviços:</label>
+                            {{ form.num_nf_servico }}
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="num_nf_vendas">Número Nota Fiscal de Vendas:</label>
+                            {{ form.num_nf_vendas }}
+                        </div>
+                    </div>
+                     <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="num_nf_devolucao">Número Nota Fiscal de Devolução:</label>
+                            {{ form.num_nf_devolucao }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                     
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label for="data_envio">Data de Envio do Orçamento:</label>
+                            {{ form.data_envio }}
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="data_aprovado">Data de Aprovação:</label>
+                           {{ form.data_aprovado }}
+                         </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="data_liberacao">Data de Liberação:</label>
+                            {{ form.data_liberacao }}
+                        </div>
+                    </div>
+                     <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="valor">Valor:</label>
+                            {{ form.valor }}
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                     <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="responsavel_preenchimento">Responsável pelo Preenchimento:</label>
+                            {{ form.responsavel_preenchimento }}
+                         </div>
+                    </div>
+                    
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <label for="acessorios">Acessórios:</label>
+                            <label for="executante">Executante:</label>
+                            {{ form.executante }}
+                        </div>
+                    </div>
+                   
+                   
+                </div>
+                <div class="row">
+                     <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="acessorios" style="width:500px;">Acessórios:</label>
                             {{ form.acessorios }}
                         </div>
                     </div>
@@ -81,61 +145,11 @@
                             {{ form.observacoes }}
                         </div>
                     </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label for="data_envio">Data de Envio do Orçamento:</label>
-                            {{ form.data_envio }}
+                    <div class="col-sm-4">
+                         <div class="form-group">
+                            <label for="descricao">Descrição:</label>
+                            {{ form.descricao }}
                         </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label for="num_nf_servico">Número Nota Fiscal de Serviços:</label>
-                            {{ form.num_nf_servico }}
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label for="num_nf_vendas">Número Nota Fiscal de Vendas:</label>
-                            {{ form.num_nf_vendas }}
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                     <div class="col-sm-3">
-                        <div class="form-group">
-                            <label for="num_nf_devolucao">Número Nota Fiscal de Devolução:</label>
-                            {{ form.num_nf_devolucao }}
-                        </div>
-                    </div>
-                     <div class="col-sm-3">
-                        <div class="form-group">
-                            <label for="valor">Valor:</label>
-                            {{ form.valor }}
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label for="executante">Executante:</label>
-                            {{ form.executante }}
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label for="data_aprovado">Data de Aprovação:</label>
-                           {{ form.data_aprovado }}
-                         </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label for="data_liberacao">Data de Liberação:</label>
-                            {{ form.data_liberacao }}
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="form-group">
-                            <label for="responsavel_preenchimento">Responsável pelo Preenchimento:</label>
-                            {{ form.responsavel_preenchimento }}
-                         </div>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success">Cadastrar</button>
@@ -143,4 +157,5 @@
             </form>
         </div>
     </body>
+    <footer><br></footer>
 </html>

@@ -4,7 +4,10 @@ $(document).ready(function(){
     $('#insc_estadual').mask('000.000.000.000');
     $('#tel').mask('(00) 0000-0000');
     $('#ramal').mask('0000');
-    $('#valor').mask('000.000.000,00', {reverse: true})
+    //$('#valor').mask('000.000.000,00', {reverse: true});
+    $('#data_aprovado').mask('00/00/0000');
+    $('#data_liberacao').mask('00/00/0000');
+    $('#data_envio').mask('00/00/0000');
     $('input#cel').focusout(function(){
 		var phone, element;
 		element = $(this);
@@ -31,6 +34,14 @@ $(document).ready(function(){
 	    var name = $(this).data('name')
         $('div.modal-body').append('Deseja apagar o cliente: <strong>' + name + '</strong>?');
         $('a.btn-yes').attr('href', 'delete_cliente/' + id + '/');
+    });
+    
+    $('.remove-ordem').click(function(){
+	    $('div.modal-body').empty();
+	    var id = $(this).data('id')
+	    var num = $(this).data('num_pedido')
+        $('div.modal-body').append('Deseja apagar a ordem: <strong>' + num + '</strong>?');
+        $('a.btn-yes').attr('href', 'delete_ordem/' + id + '/');
     });
 });
 

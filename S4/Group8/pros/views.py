@@ -27,11 +27,6 @@ def cadastro_empresa(request):
     return render(request, 'pros/cadastro_empresa.html', {'form': form})
 
 
-def delete_empresa(pk):
-    Empresa.objects.filter(id=pk).delete()
-    return redirect('pros:empresas')
-
-
 def update_empresa(request, pk):
     empresa = Empresa.objects.get(pk=pk)
     form = CadastrarEmpresa(request.POST or None, instance=empresa)
@@ -41,7 +36,13 @@ def update_empresa(request, pk):
     return render(request, 'pros/update_empresa.html', {'form': form, 'pk': pk})
 
 
+
+def delete_empresa(request, pk):
+    Empresa.objects.filter(id=pk).delete()
+    return redirect('pros:empresas')
+
 # Clientes:--------------------------------------------------------------------------------------------
+
 
 def clientes(request, empresa_id):
     client_list = Cliente.objects.filter(empresa_id=empresa_id)
@@ -62,7 +63,7 @@ def cadastro_cliente(request, empresa_id):
             form.save()
             return redirect('pros:clientes', empresa_id)
         else:
-            return redirect('pros:empresas')
+            return redirect('pros:clientes', empresa_id)
     else:
         form = CadastrarCliente()
         nome_empresa = Empresa.objects.filter(id=empresa_id).get().nome_empresa
@@ -70,7 +71,7 @@ def cadastro_cliente(request, empresa_id):
                                                              'nome_empresa': nome_empresa})
 
 
-def delete_cliente(empresa_id, pk):
+def delete_cliente(request, empresa_id, pk):
     Cliente.objects.filter(id=pk).delete()
     return redirect('pros:clientes', empresa_id)
 
@@ -101,7 +102,6 @@ def cadastro_ordem(request):
         form = CadastrarOrdem(request.POST)
         if form.is_valid():
             form = form.save(commit=False)
-            form.data = date.today()
             form.save()
             return redirect('pros:index')
     else:
@@ -119,6 +119,6 @@ def update_ordem(request, pk):
     return render(request, 'pros/update_ordem.html', {'form': form, 'pk': pk})
 
 
-def delete_ordem(pk):
+def delete_ordem(request, pk):
     Ordem.objects.filter(id=pk).delete()
     return redirect('pros:index')

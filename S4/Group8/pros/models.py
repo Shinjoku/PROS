@@ -1,10 +1,12 @@
 from django.db import models
+from datetime import datetime
 
 
 class Empresa(models.Model):
+    
     nome_empresa = models.CharField(max_length=200)
     nome_social = models.CharField(max_length=200)
-    cnpj = models.CharField(max_length=20)
+    cnpj = models.CharField(max_length=20, unique=True)
     insc_estadual = models.CharField(max_length=20)
     cidade = models.CharField(max_length=100)
     estado = models.CharField(max_length=100)
@@ -16,6 +18,7 @@ class Empresa(models.Model):
 
 
 class Cliente(models.Model):
+    
     empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
     solicitante = models.CharField(max_length=100)
     responsavel = models.CharField(max_length=100)
@@ -33,7 +36,7 @@ class Ordem(models.Model):
 
     # O id está implícito na criação da tabela e será usado como número da ordem serviço;
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    data = models.DateField(auto_now_add=True)
+    data = models.DateField(default=datetime.now(), blank=True)
     num_nf_entrada = models.CharField(max_length=20)
     descricao = models.CharField(max_length=512)
     acessorios = models.CharField(max_length=200)
