@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+
+{% load staticfiles %}
+
+<html lang="pt-br">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>RSA</title>
+<!--CSS--------------------------------------------------------------------------------------------------------------->
+        <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap-theme.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap-table.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/pros.css' %}">
+<!-------------------------------------------------------------------------------------------------------------------->
+<!--JAVASCRIPT-------------------------------------------------------------------------------------------------------->
+        <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+        <script src="{% static 'js/jquery.mask.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap-table.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap-table-pt-BR.min.js' %}"></script>
+        <script src="{% static 'js/pros.js' %}"></script>
+<!-------------------------------------------------------------------------------------------------------------------->
+    </head>
+    <body>
+        <header class="page-header text-center color-link-orcamento">
+            <h1><strong>RSA</strong> - Ordem de serviço</h1>
+        </header>
+        <div class="container">
+            <ul class="breadcrumb">
+                <li class="active">Orçamento</li>
+            </ul>
+            <div id="toolbar-orcamento">
+                <a type="button" class="btn btn-primary" href="{% url 'pros:cadastro_ordem' %}">
+                    <i class="glyphicon glyphicon-log-in"></i> Criar Orçamento
+                </a>
+                <a type="button" class="btn btn-success" href="{% url 'pros:empresas' %}">
+                    <i></i> Empresas
+                </a>
+            </div>
+            <div id="toolbar-empresa">
+
+            </div>
+            <table data-toggle="table"
+                data-toolbar="#toolbar-orcamento"
+                data-toolbar="#toolbar-empresa"
+                data-search="true"
+                data-sort-name="nome_empresa"
+                data-sort-order="desc"
+                data-pagination="true"
+                data-show-footer="false"
+                data-page-list="[10, 25, 50, 100, ALL]"
+                data-minimum-count-columns="2"
+                data-show-columns="true">
+                <thead>
+                    <tr>
+                        <th data-field="num_ordem" data-sortable="true">ID</th>
+                        <th data-field="data" data-sortable="true">Data</th>
+                        <th data-field="executante" data-sortable="true">Executante</th>
+                        <th data-field="estado" data-sortable="true">Situação</th>
+                        <th data-field="action" class="col-md-1" data-align="center">Ação</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ordem in ordem_list %}
+                        <tr>
+                            <td class="text-overflow">{{ ordem.id }}</td>
+                            <td class="text-overflow">{{ ordem.data }}</td>
+                            <td class="text-overflow">{{ ordem.executante }}</td>
+                           <!--- <td class="text-overflow">{{ ordem.estado }}</td> --->
+                            <td class="col-md-1" data-align="center">
+                                <a class="edit ml10" href="update_ordem/{{ ordem.id }}" title="Edit">
+                                    <i class="glyphicon glyphicon-edit color-link-empresa"></i>
+                                </a>
+                                <a class="remove ml10 delete_ordem" title="Remove" data-toggle="modal" href="#"
+                                   data-id="{{ ordem.id }}"
+                                   data-target="#client-del">
+                                    <i class="glyphicon glyphicon-remove color-delete"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
